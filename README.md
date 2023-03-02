@@ -1,6 +1,6 @@
 # Calcule colaborative in sisteme distribuite 
-ALGORITMI PARALELI SI DISTRIBUITI
-Tema #3
+ALGORITMI PARALELI SI DISTRIBUITI,
+Tema #3,
 Pavelescu Florin, 334CC
 # PREAMBUL
 Rezolvarea temei mi-a luat aproximativ 6 ore. Tema mi s-a parut foarte 
@@ -42,8 +42,7 @@ mai putin cluster `0`, primeste topologia de la clusterul anterior, o afiseaza
 si o trimite mai departe la clusterul urmator (mai putin clusterul `3`) si la
 workerii subordonati, care o primesc si o afiseaza.
 - Rezumat:
-`0->1->2->3->0[->workeri_subordonati0]->1[->workeri_subordonati1]->
-           ->2[->workeri_subordonati2]->3[->workeri_subordonati3]`
+`0->1->2->3->0[->workeri_subordonati0]->1[->workeri_subordonati1]->2[->workeri_subordonati2]->3[->workeri_subordonati3]`
 
 ### Realizarea calculelor:
 Dupa stabilirea topologiei, fiecare worker isi cunoaste clusterul coordonator.
@@ -55,8 +54,8 @@ si end, le inmulteste cu 5 si le salveaza in vectorul `res` de dimensiune
 `size = end - start`. Valorile `start` si `end` au fost calculate astfel incat
 calculele sa fie echilibrate in raport cu workerii, folosind formulele 
 din laborator (`N` e dimensiunea vectorului si `rank` e rangul procesului):
-    `start = (rank - 4) * N / (NUMBER_OF_PROCESES - 4)`
-    `end = min((rank - 3) * N / (NUMBER_OF_PROCESES - 4), N)`
+    `start = (rank - 4) * N / (NUMBER_OF_PROCESES - 4)`,
+    `end = min((rank - 3) * N / (NUMBER_OF_PROCESES - 4), N)`.
 Am folosit `rank - 4`, intrucat sunt `NUMBER_OF_PROCESES - 4` procese worker
 indexate de la `4` la `NUMBER_OF_PROCESES` (procesele `0 - 3` sunt clustere).
 Imediat ce calculele au fost efectuate, fiecare worker trimite res, start
@@ -66,23 +65,17 @@ valorile din vectorii `res` pe baza valorilor `start` si `end` primite si trimit
 vectorul `v` cu modificarile precizate, din aproape in aproape, pana la cluster `0`,
 care afiseaza vectorul modificat complet.
 - Rezumat:
-`(0[->workeri_subordonati0]->1[->workeri_subordonati1]->
-->2[->workeri_subordonati2]->3[->workeri_subordonati3] calcule
-[workeri_subordonati3->]3->[workeri_subordonati2->]2->
-->[workeri_subordonati1->]1->[workeri_subordonati0->]0 final`
+`(0[->workeri_subordonati0]->1[->workeri_subordonati1]->2[->workeri_subordonati2]->3[->workeri_subordonati3] calcule
+[workeri_subordonati3->]3->[workeri_subordonati2->]2->[workeri_subordonati1->]1->[workeri_subordonati0->]0 final`
 
 ## Cazul 2. 
-Foarte asemanator cazului anterior. Voi prezenta doar rezumatele
-atat pentru partea de stabilire a topologiei cat si pentru cea de realizare
-a calculelor.
+Foarte asemanator cazului anterior. Voi prezenta doar rezumatele atat pentru partea de
+stabilire a topologiei cat si pentru cea de realizare a calculelor.
 ### Stabilirea topologiei:
-`0->3->2->1[->workeri_subordonati1]->2[->workeri_subordonati2]->
-       ->3[->workeri_subordonati3]->0[->workeri_subordonati0]`
+`0->3->2->1[->workeri_subordonati1]->2[->workeri_subordonati2]->3[->workeri_subordonati3]->0[->workeri_subordonati0]`
 
 ### Realizarea calculelor:
-`0[->workeri_subordonati0]->3[->workeri_subordonati1]->
-->2[->workeri_subordonati2]->1[->workeri_subordonati3] calcule
-[workeri_subordonati1->]1->[workeri_subordonati2->]2->
-->[workeri_subordonati1->]1->[workeri_subordonati0->]0 final`
+`0[->workeri_subordonati0]->3[->workeri_subordonati1]->2[->workeri_subordonati2]->1[->workeri_subordonati3] calcule
+[workeri_subordonati1->]1->[workeri_subordonati2->]2->[workeri_subordonati1->]1->[workeri_subordonati0->]0 final`
 
 Mai multe detalii despre implementare se gasesc in comentariile din cod.
