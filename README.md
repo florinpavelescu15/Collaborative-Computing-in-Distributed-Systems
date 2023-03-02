@@ -1,7 +1,7 @@
-# Pavelescu Florin, 334CC
-## ALGORITMI PARALELI SI DISTRIBUITI
-## Tema #3
-## Calcule colaborative in sisteme distribuite
+# Calcule colaborative in sisteme distribuite 
+ALGORITMI PARALELI SI DISTRIBUITI
+Tema #3
+Pavelescu Florin, 334CC
 # PREAMBUL
 Rezolvarea temei mi-a luat aproximativ 6 ore. Tema mi s-a parut foarte 
 interesanta si accesibila, fiind foarte asemanatoare cu cerintele din
