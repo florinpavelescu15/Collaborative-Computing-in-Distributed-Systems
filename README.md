@@ -26,7 +26,7 @@ primelor doua cerinte;
 corespunzator cerintei 3.
 
 ## Cazul 1.
-- Stabilirea topologiei:
+### Stabilirea topologiei:
 In clusterul `0` preiau numarul total de procese din functia `MPI_Comm_size()`,
 citesc din fisierul cluster.txt si retin datele in vectorii `topology` si
 `workers` `(topology[i] = k` <=> procesul i este un worker subordonat clusterului
@@ -41,11 +41,11 @@ apoi o trimite din aproape in aproape pana la clusterul `3`. Fiecare cluster,
 mai putin cluster `0`, primeste topologia de la clusterul anterior, o afiseaza
 si o trimite mai departe la clusterul urmator (mai putin clusterul `3`) si la
 workerii subordonati, care o primesc si o afiseaza.
-### Rezumat:
+- Rezumat:
 `0->1->2->3->0[->workeri_subordonati0]->1[->workeri_subordonati1]->
            ->2[->workeri_subordonati2]->3[->workeri_subordonati3]`
 
-- Realizarea calculelor:
+### Realizarea calculelor:
 Dupa stabilirea topologiei, fiecare worker isi cunoaste clusterul coordonator.
 Clusterul `0` genereaza `v` si il trimite, din aproape in aproape, pana la
 clusterul `3`. Fiecare cluster imediat ce primeste vectorul `v`, il trimite la
@@ -65,7 +65,7 @@ primeste vectorii `res` de la workerii subordonati, adauga in vectorul `v`
 valorile din vectorii `res` pe baza valorilor `start` si `end` primite si trimite
 vectorul `v` cu modificarile precizate, din aproape in aproape, pana la cluster `0`,
 care afiseaza vectorul modificat complet.
-###Rezumat:
+- Rezumat:
 `(0[->workeri_subordonati0]->1[->workeri_subordonati1]->
 ->2[->workeri_subordonati2]->3[->workeri_subordonati3] calcule
 [workeri_subordonati3->]3->[workeri_subordonati2->]2->
@@ -75,11 +75,11 @@ care afiseaza vectorul modificat complet.
 Foarte asemanator cazului anterior. Voi prezenta doar rezumatele
 atat pentru partea de stabilire a topologiei cat si pentru cea de realizare
 a calculelor.
-- Stabilirea topologiei:
+### Stabilirea topologiei:
 `0->3->2->1[->workeri_subordonati1]->2[->workeri_subordonati2]->
        ->3[->workeri_subordonati3]->0[->workeri_subordonati0]`
 
-- Realizarea calculelor:
+### Realizarea calculelor:
 `0[->workeri_subordonati0]->3[->workeri_subordonati1]->
 ->2[->workeri_subordonati2]->1[->workeri_subordonati3] calcule
 [workeri_subordonati1->]1->[workeri_subordonati2->]2->
