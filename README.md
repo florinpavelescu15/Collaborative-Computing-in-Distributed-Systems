@@ -2,13 +2,13 @@
 ALGORITMI PARALELI SI DISTRIBUITI,
 Tema #3,
 Pavelescu Florin, 334CC
-# PREAMBUL
+## PREAMBUL
 Rezolvarea temei mi-a luat aproximativ 6 ore. Tema mi s-a parut foarte 
 interesanta si accesibila, fiind foarte asemanatoare cu cerintele din
 cadrul laboratoarelor. Am urmat intocmai indicatiile din cerinta privind
 numarul de procese si schimbul de mesaje intre acestea.
-# DETALII DE IMPLEMENTARE
-## Conventii: 
+## DETALII DE IMPLEMENTARE
+### Conventii 
 - Pentru procesul curent de rang k, procesul urmator e procesul de rang
 `k + 1`, iar procesul anterior/precedent e procesul de rang `k - 1`;
 - `i->j` = clusterul i trimite un mesaj clusterului `j` si clusterul `j`
@@ -25,8 +25,8 @@ primelor doua cerinte;
 2. Legatura intrerupta intre clusterele `0` si `1` `(0->3->2->1->2->3->0)`,
 corespunzator cerintei 3.
 
-## Cazul 1.
-### Stabilirea topologiei:
+### Cazul 1
+#### Stabilirea topologiei
 In clusterul `0` preiau numarul total de procese din functia `MPI_Comm_size()`,
 citesc din fisierul cluster.txt si retin datele in vectorii `topology` si
 `workers` `(topology[i] = k` <=> procesul i este un worker subordonat clusterului
@@ -44,7 +44,7 @@ workerii subordonati, care o primesc si o afiseaza.
 - Rezumat:
 `0->1->2->3->0[->workeri_subordonati0]->1[->workeri_subordonati1]->2[->workeri_subordonati2]->3[->workeri_subordonati3]`
 
-### Realizarea calculelor:
+#### Realizarea calculelor
 Dupa stabilirea topologiei, fiecare worker isi cunoaste clusterul coordonator.
 Clusterul `0` genereaza `v` si il trimite, din aproape in aproape, pana la
 clusterul `3`. Fiecare cluster imediat ce primeste vectorul `v`, il trimite la
@@ -68,13 +68,13 @@ care afiseaza vectorul modificat complet.
 `(0[->workeri_subordonati0]->1[->workeri_subordonati1]->2[->workeri_subordonati2]->3[->workeri_subordonati3] calcule
 [workeri_subordonati3->]3->[workeri_subordonati2->]2->[workeri_subordonati1->]1->[workeri_subordonati0->]0 final`
 
-## Cazul 2. 
+### Cazul 2 
 Foarte asemanator cazului anterior. Voi prezenta doar rezumatele atat pentru partea de
 stabilire a topologiei cat si pentru cea de realizare a calculelor.
-### Stabilirea topologiei:
+#### Stabilirea topologiei:
 `0->3->2->1[->workeri_subordonati1]->2[->workeri_subordonati2]->3[->workeri_subordonati3]->0[->workeri_subordonati0]`
 
-### Realizarea calculelor:
+#### Realizarea calculelor:
 `0[->workeri_subordonati0]->3[->workeri_subordonati1]->2[->workeri_subordonati2]->1[->workeri_subordonati3] calcule
 [workeri_subordonati1->]1->[workeri_subordonati2->]2->[workeri_subordonati1->]1->[workeri_subordonati0->]0 final`
 
