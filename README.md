@@ -1,4 +1,4 @@
-#Pavelescu Florin, 334CC
+# Pavelescu Florin, 334CC
 ##ALGORITMI PARALELI SI DISTRIBUITI
 ##Tema #3
 ##Calcule colaborative in sisteme distribuite
